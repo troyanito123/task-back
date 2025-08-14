@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import express from "express";
-import { UserService } from "./user.service";
+import { UserFirebaseService } from "./user-firebase.service";
 import { UserController } from "./user.controller";
 import { JwtService } from "../jwt/jwt.service";
 import cors from "cors";
@@ -10,7 +10,7 @@ const jwtService = new JwtService(
   process.env.JWT_SECRET ?? "",
   process.env.JWT_DURATION ?? "5m"
 );
-const service = new UserService(jwtService);
+const service = new UserFirebaseService(jwtService);
 const controller = new UserController(service);
 
 app.get("/v1/renew", controller.renew);

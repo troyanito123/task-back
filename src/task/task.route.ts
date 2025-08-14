@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import express from "express";
 
-import { TaskService } from "./task.service";
+import { TaskFirebaseService } from "./task-firebase.service";
 import { TaskController } from "./task.controller";
 import { UserMiddleware } from "../user/user.middleware";
 import { JwtService } from "../jwt/jwt.service";
@@ -16,7 +16,7 @@ const jwtService = new JwtService(
 );
 const userMiddleware = new UserMiddleware(jwtService);
 app.use(userMiddleware.verifyToken);
-const service = new TaskService();
+const service = new TaskFirebaseService();
 const controller = new TaskController(service);
 
 app.get("", controller.getAllTasks);
